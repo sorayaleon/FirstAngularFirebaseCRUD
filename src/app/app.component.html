@@ -1,0 +1,64 @@
+<div class="container my-5">
+  <h2 class="text-center mb-3">Sistema de Gestión de Usuarios</h2>
+  <button type="button" class="btn btn-success mb-3" (click)="open(content)">New User</button>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Phone</th>
+        <th>Options</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of collection.data | paginate: config">
+        <td>{{item.name}}</td>
+        <td>{{item.surname}}</td>
+        <td>{{item.phone}}</td>
+        <td>
+          <button type="button" class="btn btn-warning mx-1" (click)="openUser(content, item)">Show User</button>
+          <button type="button" class="btn btn-primary mx-1" (click)="openUpdate(content, item)">Edit</button>
+          <button type="button" class="btn btn-danger mx-1" (click)="deleteUser(item)">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <pagination-controls class="text-center mt-5" (pageChange)="pageChange($event)"></pagination-controls>
+
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">User create/update</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+         <form [formGroup]="userForm">
+            <div class="form-group">
+              <label for="">Name</label>
+              <input class="form-control" type="text" formControlName="name">
+            </div>
+            <div class="form-group">
+              <label for="">Surname</label>
+              <input class="form-control" type="text" formControlName="surname">
+            </div>
+            <div class="form-group">
+              <label for="">Phone</label>
+              <input class="form-control" type="text" formControlName="phone">
+            </div>
+         </form>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="saveUser()" *ngIf="!update && !idUser">Save</button>
+      <button type="button" class="btn btn-outline-dark" (click)="updateUser()" *ngIf="update">Update</button>
+    </div>
+  </ng-template>
+
+
+
+</div>
