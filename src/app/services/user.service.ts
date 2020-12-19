@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore'
+import { AngularFirestore } from '@angular/fire/firestore';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,7 @@ export class UserService {
   ) { }
 
   getUsers(){
-    return this.firestore.collection("users").snapshotChanges();
+    return this.firestore.collection<User>("users").valueChanges({ idField: 'id' });
   }
 
   getUser(id:any) {

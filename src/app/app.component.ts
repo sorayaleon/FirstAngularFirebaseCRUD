@@ -40,12 +40,12 @@ export class AppComponent implements OnInit{
     })
 
     this.userService.getUsers().subscribe(res => {
-      this.collection.data = res.map((e:any)=> {
+      this.collection.data = res.map((user)=> {
         return {
-          id: e.payload.doc.id,
-          name: e.payload.doc.data().name,
-          surname: e.payload.doc.data().surname,
-          phone: e.payload.doc.data().phone,
+          id: user.id,
+          name: user.name,
+          surname: user.surname,
+          phone: user.phone,
         }
       })
     }), err => {
